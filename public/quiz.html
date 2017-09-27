@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>QuizTime</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
+</head>
+
+<body>
+
+<div class="jumbotron">
+    <h1 class="text-center">Can you pass the 8th grade?</h1>
+    <h3 class="text-center">Select a subject</h3>
+</div>
+
+<div class="container">
+    <div class="row">
+            <div class="col-md-3" id="left-side-panel"></div>
+            <div class="col-md-6" id="middle-panel">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <button id="start-quiz">Geography Quiz</button>
+                    <div id="quiz"></div>
+                    <br><br>
+                        <button id="submit">Submit Answers</button>
+                    <div></div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-3" id="right-side-panel">
+                <div id="panel-heading"></div>
+                <div id="display"></div>
+                <div id="results">Score</div>
+            </div>
+        </div>
+</div>
+
+<script src="assets/javascript/quiz.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+#answers {
+	background-color: white;
+	padding: 20px;
+}
+
+#quiz {
+	background-color: white;
+	padding: 20px;
+}
+
+li {
+	list-style: none;
+}
