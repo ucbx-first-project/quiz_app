@@ -29,18 +29,30 @@
             <div class="col-md-6" id="middle-panel">
                 <div class="panel panel-default">
                   <div class="panel-body">
-                    <button id="start-quiz">Geography Quiz</button>
+                    <button type="button" class="btn btn-primary btn-lg btn-success" id="start-geo-quiz">Geography Quiz</button>
+                    <button type="button" class="btn btn-primary btn-lg btn-success" id="start-bio-quiz">Biology Quiz</button>
+                    <button type="button" class="btn btn-primary btn-lg btn-success" id="start-history-quiz">US History Quiz</button>
                     <div id="quiz"></div>
                     <br><br>
-                        <button id="submit">Submit Answers</button>
-                    <div></div>
+                    <button type="button" class="btn btn-primary btn-lg btn-success btn-info" id="submit">Submit Answers</button>
+                    <button type="button" class="btn btn-primary btn-lg btn-success btn-info" id="reset">Reset Quiz</button>
+                        <!-- The Modal -->
+                        <div id="answer-summary" class="modal">
+
+                          <!-- Modal content -->
+                          <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <p>Quiz Results</p>
+                            <div id="results">Score</div>
+                          </div>
+                        </div>
                   </div>
                 </div>
             </div>
             <div class="col-md-3" id="right-side-panel">
                 <div id="panel-heading"></div>
                 <div id="display"></div>
-                <div id="results">Score</div>
+                
             </div>
         </div>
 </div>

@@ -20,10 +20,24 @@ var questions = {
 	}],
 
 	"biology" : [{
+    question: "A group of similar species is a ______?", answers: {
+      a: " Class",
+      b: " Genus",
+      c: " Kingdom",
+      d: " Taxonomic"
+    },
+    answer: "b",
 
 	}],
 
 	"history" : [{
+    question: "In 1803 President Jefferson purchased a large peice of land from the French. What was this event called?", answers: {
+      a: " Pacific Discovery",
+      b: " Jefferson's Deal",
+      c: " Louisiana Purchase",
+      d: " The French Affair"
+    },
+    answer: "c",
 
 	}],
 }
@@ -109,16 +123,57 @@ function showResults (subject){
 //set on.(click) event listener to run the generate quiz function 
 //assign the subject
 $("#submit").on("click", function(){
-    showResults(questions.geography);
-    console.log("results updated")
+  showResults(questions.geography);
+  console.log("results updated")
 
 });
 
-$("#start-quiz").on("click", function(){
-    currentSubject = "geography";
-    generateQuiz(questions.geography);
-    console.log("started quiz");
+$("#start-geo-quiz").on("click", function(){
+  currentSubject = "geography";
+  generateQuiz(questions.geography);
+  console.log("started quiz");
 });
 
+$("#start-bio-quiz").on("click", function(){
+  currentSubject = "biology";
+  generateQuiz(questions.biology);
+  console.log("started quiz");
+});
 
+$("#start-history-quiz").on("click", function(){
+  currentSubject = "history";
+  generateQuiz(questions.history);
+  console.log("started quiz");
+});
 
+$("#reset").on("click", function(){
+  currentSubject = "";
+  $("#quiz").empty();
+  console.log("reset quiz")
+});
+
+// Get the modal for quiz result display
+var modal = document.getElementById('answer-summary');
+
+// Get the button that opens the modal
+var btn = document.getElementById("submit");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
