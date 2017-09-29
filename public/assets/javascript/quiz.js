@@ -144,16 +144,51 @@ $("#submit").on("click", function(){
 //need to update this with the API link to wikipedia
 //ideally later show/hide the submit and reset buttons
 
-var queryURL = //api
+//var queryURL =  "https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=Nile&prop=revisions&rvprop=content&rvsection=0&format=jsonfm;
 
-$.ajax({
+//rendered api "https://en.wikipedia.org/wiki/Main_Page?action=render"
+
+/*$.ajax({
+    lgname: "acrosswhite",
+    lgpassword: "wiki2017!",
+    lgtoken: "api.php?action=login&lgname=user&lgpassword=password",
     url: queryURL,
-    method: "GET"
+    type: "GET",
+    dataType: "jsonp",
+    xhrFields: {
+      withCredentials: false
+    },*/
+$.ajax( {
+    url: "http://en.wikipedia.org/w/api.php?action=parse&format=jsonp&prop=revisions&rvprop=content&titles=Nile&callback=?",
+    jsonp: "callback", 
+    dataType: 'jsonp', 
+    data: { 
+        action: "query", 
+        list: "search", 
+        srsearch: "javascript", 
+        format: "json" 
+    },
+    xhrFields: { withCredentials: true },
+
+   /* headers: {
+      Access-Control-Allow-Origin: "*",
+      Origin: https: "//quiz-app-64dbc.firebaseapp.com/quiz.html"
+
+    },*/
+    success: function(data, textStatus, jqXHR) {
+      console.log("success")
+      console.log(data);
+      var markup = data.parse;
+      var blurb = $('<div></div>').html(markup);
+      $('#wiki-content').html($(blurb).find('p'));
+    },
+    error: function (){
+      console.log("error")
+    }
   }).done(function(response){
     //update with content from wiki
-    
-  })
-
+    //$("#wiki-content")
+  });
 
 });
 
