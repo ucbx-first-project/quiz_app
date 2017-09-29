@@ -10,12 +10,29 @@
 
 var questions = {
 	"geography" : [{
-		question: "What airport uses the code FCO?", answers: {
-	 		a: " Rome",
-	 		b: " Frankfurt",
-	 		c: " Fair Isle",
+		question: "Which of the following countries is NOT a member of the European Union (EU)?", answers: {
+	 		a: " Denmark",
+	 		b: " Norway",
+	 		c: " Sweden",
+      d: " Finland"
  		},
- 		answer: "a",
+ 		answer: "b",
+
+    question: "What is the longest mountain range in the world?", answers: {
+      a: " Himalayas",
+      b: " Alps",
+      c: " Andes",
+      d: " Rocky Mountains"
+    },
+    answer: "c",
+
+    question: "Which of the following is the longest river in the world?", answers: {
+      a: " Amazon",
+      b: " Nile",
+      c: " Yangtze",
+      d: " Congo"
+    },
+    answer: "a"
 
 	}],
 
@@ -71,12 +88,11 @@ function generateQuiz (subject){
       		answers.push("</ul>");
 
       		output.push(
-			'<div class="q">' + subject[i].question + '</div>'
-			+'<br>'
-			+ '<div class="answers">' + answers.join(' ') + '</div>')
+			"<div class='q'>" + subject[i].question + "</div>"
+			+"<br>"
+			+ "<div class='answers'>" + answers.join(' ') + "</div>")
 
 
-            //$("#quiz").append(output).join('');
 			quiz.innerHTML = output.join('');
 			console.log(output.join(''));
 
@@ -125,6 +141,19 @@ function showResults (subject){
 $("#submit").on("click", function(){
   showResults(questions.geography);
   console.log("results updated")
+//need to update this with the API link to wikipedia
+//ideally later show/hide the submit and reset buttons
+
+var queryURL = //api
+
+$.ajax({
+    url: queryURL,
+    method: "GET"
+  }).done(function(response){
+    //update with content from wiki
+    
+  })
+
 
 });
 

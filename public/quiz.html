@@ -9,7 +9,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://use.fontawesome.com/bc7aa1a3d0.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -19,14 +22,22 @@
 <body>
 
 <div class="jumbotron">
-    <h1 class="text-center">Can you pass the 8th grade?</h1>
-    <h3 class="text-center">Select a subject</h3>
+    <h1 class="text-center" id="heading-background">Can you pass the 8th grade?</h1>
+    <h3 class="text-center" id="sub-heading-background">Select a subject</h3>
+    <br><br>
+    <div>
+        <i class="fa fa-book fa-4x animated infinite jello" aria-hidden="true"></i>
+        <i class="fa fa-flask fa-4x animated infinite rubberBand" aria-hidden="true"></i>
+        <i class="fa fa-graduation-cap fa-4x animated infinite jello" aria-hidden="true"></i>
+        <i class="fa fa-pencil-square-o fa-4x animated infinite rubberBand" aria-hidden="true"></i>
+    </div>
+
 </div>
 
 <div class="container">
     <div class="row">
-            <div class="col-md-3" id="left-side-panel"></div>
-            <div class="col-md-6" id="middle-panel">
+            <div class="col-md-1" id="left-side-panel"></div>
+            <div class="col-md-10" id="middle-panel">
                 <div class="panel panel-default">
                   <div class="panel-body">
                     <button type="button" class="btn btn-primary btn-lg btn-success" id="start-geo-quiz">Geography Quiz</button>
@@ -42,14 +53,14 @@
                           <!-- Modal content -->
                           <div class="modal-content">
                             <span class="close">&times;</span>
-                            <p>Quiz Results</p>
+                            <p id="quiz-result">Quiz Results</p>
                             <div id="results">Score</div>
                           </div>
                         </div>
                   </div>
                 </div>
             </div>
-            <div class="col-md-3" id="right-side-panel">
+            <div class="col-md-1" id="right-side-panel">
                 <div id="panel-heading"></div>
                 <div id="display"></div>
                 
