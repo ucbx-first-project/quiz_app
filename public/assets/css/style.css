@@ -97,6 +97,13 @@ li {
     text-align: center;
 }
 
+#twitter-content {
+	line-height: 1.2;
+	border-color: green;
+	font-family: Verdana, sans-serif;
+	margin-left: 30px;
+}
+
 /* Modal Content/Box */
 .modal-content {
     background-color: white;

@@ -4,6 +4,11 @@
 //moves you to the second page with the quiz generators
 
 
+//edit quiz to single question which allows for update of wiki on each
+//add next question button to pull a new random question
+//check api info for trivia question generator
+//add giphy
+
 
 //questions object to contain each subject object 
 //with a sub object holding questions
@@ -62,6 +67,10 @@ var questions = {
 }
 
 var currentSubject = "";
+$("#reset").hide();
+$("#submit").hide();
+$(".account-detail").hide();
+
 
 
 //set up a quiz function that can be called for any set of questions
@@ -141,83 +150,106 @@ function showResults (subjectQuestions){
 //set on.(click) event listener to run the generate quiz function 
 //assign the subject
 $("#submit").on("click", function(){
-  showResults(questions.geography);
-  console.log("results updated")
-//need to update this with the API link to wikipedia
-//ideally later show/hide the submit and reset buttons
+  showResults(currentSubject);
 
-//var queryURL =  "https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=Nile&prop=revisions&rvprop=content&rvsection=0&format=jsonfm;
+   if (numCorrect = currentSubject.length){
+     console.log("you rock, post to twitter");
+     $("#twitter-content").html("<input type=text maxlength=140></input>");
 
-//rendered api "https://en.wikipedia.org/wiki/Main_Page?action=render"
+     // $("#twitter-button").html('<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
+     // class="twitter-share-button" data-show-count="false">Tweet</a><script async 
+     // src="//platform.twitter.com/widgets.js" charset="utf-8">')
 
-/*$.ajax({
-    lgname: "acrosswhite",
-    lgpassword: "wiki2017!",
-    lgtoken: "api.php?action=login&lgname=user&lgpassword=password",
-    url: queryURL,
-    type: "GET",
-    dataType: "jsonp",
-    xhrFields: {
-      withCredentials: false
-    },*/
-$.ajax( {
-   // url: "http://en.wikipedia.org/w/api.php?action=parse&format=jsonp&prop=revisions&rvprop=content&titles=Nile&section=0&callback=?",
-    url: "http://en.wikipedia.org/w/api.php?action=query&format=jsonp&prop=extracts&exintro&explaintext&titles=Nile&section=0",
-    
-    jsonp: "callback", 
-    dataType: 'jsonp', 
-    data: { 
-        action: "query", 
-        list: "search", 
-        srsearch: "javascript", 
-        format: "json" 
-    },
-    xhrFields: { withCredentials: true },
+     var status = document.getElementById("twitter-content")
+     //add twitter api
 
-   /* headers: {
-      Access-Control-Allow-Origin: "*",
-      Origin: https: "//quiz-app-64dbc.firebaseapp.com/quiz.html"
+     $.ajax({
+      url: "https://api.twitter.com/1.1/statuses/update.json?status=" + status,
+      method: "POST",
+      dataType: "jsonp",
+      
+      success: function(data){
+        console.log("success");
+      },
 
-    },*/
-    success: function(data, textStatus, jqXHR) {
-      console.log("success")
-      console.log(data);
+      error: function(){
+        console.log("error");
+      }
 
-      for (var pageNumber in data.query.pages){
-        console.log(data.query.pages[pageNumber].extract);
-        $("#wiki-content").html(data.query.pages[pageNumber].extract);
-      }; 
 
-    },
-    error: function (){
-      console.log("error")
-    }
-  })
+     });
+
+
+   }
+
+   else {
+    console.log("results updated with wiki api")
+    var studyContent = "Nile"
+  //API link to wikipedia
+  //ideally later show/hide the submit and reset buttons
+
+    $.ajax( {
+     // url: "http://en.wikipedia.org/w/api.php?action=parse&format=jsonp&prop=revisions&rvprop=content&titles=Nile&section=0&callback=?",
+      url: "http://en.wikipedia.org/w/api.php?action=query&format=jsonp&prop=extracts&exintro&explaintext&titles=" + studyContent + "&section=0",
+      
+      jsonp: "callback", 
+      dataType: 'jsonp', 
+      data: { 
+          action: "query", 
+          list: "search", 
+          srsearch: "javascript", 
+          format: "json" 
+      },
+      xhrFields: { withCredentials: true },
+
+      success: function(data, textStatus, jqXHR) {
+        console.log("success")
+        console.log(data);
+
+        for (var pageNumber in data.query.pages){
+          console.log(data.query.pages[pageNumber].extract);
+          $("#wiki-content").html(data.query.pages[pageNumber].extract);
+        }; 
+
+      },
+      error: function (){
+        console.log("error")
+      }
+    });
+  }
+
 
 });
 
 $("#start-geo-quiz").on("click", function(){
-  currentSubject = "geography";
+  currentSubject = questions.geography;
   generateQuiz(questions.geography);
   console.log("started quiz");
+  $("#submit").show();
+  $("#reset").show();
 });
 
 $("#start-bio-quiz").on("click", function(){
-  currentSubject = "biology";
+  currentSubject = questions.biology;
   generateQuiz(questions.biology);
   console.log("started quiz");
+  $("#submit").show();
+  $("#reset").show();
 });
 
 $("#start-history-quiz").on("click", function(){
-  currentSubject = "history";
+  currentSubject = questions.history;
   generateQuiz(questions.history);
   console.log("started quiz");
+  $("#submit").show();
+  $("#reset").show();
 });
 
 $("#reset").on("click", function(){
   currentSubject = "";
   $("#quiz").empty();
   console.log("reset quiz")
+  $("#submit").hide();
 });
 
 // Get the modal for quiz result display
@@ -245,3 +277,9 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+$("#account-button").on("click", function(){
+
+    $(".account-detail").slideToggle();
+
+});

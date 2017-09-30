@@ -37,7 +37,7 @@
 <div class="container">
     <div class="row">
             <div class="col-md-1" id="left-side-panel"></div>
-            <div class="col-md-10" id="middle-panel">
+            <div class="col-md-9" id="middle-panel">
                 <div class="panel panel-default">
                   <div class="panel-body">
                     <button type="button" class="btn btn-primary btn-lg btn-success" id="start-geo-quiz">Geography Quiz</button>
@@ -56,13 +56,30 @@
                             <p id="quiz-result">Quiz Results</p>
                             <div id="results">Score</div>
                             <div id="wiki-content"></div>
+                            <div id="twitter-content"></div>
+                            <div id="twitter-button"></div>
                           </div>
                         </div>
                   </div>
                 </div>
             </div>
-            <div class="col-md-1" id="right-side-panel">
-                <div id="panel-heading"></div>
+            <div class="col-md-2" id="right-side-panel">
+                <div id="panel-heading">
+                    <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation" class="active"><a href="https://quiz-app-64dbc.firebaseapp.com/index.html">Login</a></li>
+                    <li role="presentation" class="active" id="account-button"><a href="#">Account</a>
+                        <div class="panel panel-default account-detail">
+                        <div class="panel-heading account-detail">
+                        <h3 class="panel-title account-detail">Panel title</h3>
+                        </div>
+                        <div class="panel-body account-detail">
+                        Panel content
+                      </div>
+                    </div>
+                    </li>
+                    <li role="presentation" class="active"><a href="https://quiz-app-64dbc.firebaseapp.com/quiz.html">Quizzes Home</a></li>
+                    </ul>
+                </div>
                 <div id="display"></div>
                 
             </div>
