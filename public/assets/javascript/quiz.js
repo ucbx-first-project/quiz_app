@@ -17,6 +17,7 @@ var questions = {
       d: " Finland"
  		},
  		answer: "b",
+  }, {
 
     question: "What is the longest mountain range in the world?", answers: {
       a: " Himalayas",
@@ -25,6 +26,7 @@ var questions = {
       d: " Rocky Mountains"
     },
     answer: "c",
+  }, {
 
     question: "Which of the following is the longest river in the world?", answers: {
       a: " Amazon",
@@ -90,7 +92,7 @@ function generateQuiz (subject){
       		output.push(
 			"<div class='q'>" + subject[i].question + "</div>"
 			+"<br>"
-			+ "<div class='answers'>" + answers.join(' ') + "</div>")
+			+ "<div class='answers'>" + answers.join(' ') + "</div><br>")
 
 
 			quiz.innerHTML = output.join('');
@@ -111,17 +113,17 @@ console.log("build quiz done");
 //this will display at the end to show which anwers are right/wrong
 //this *may* need to showcase the api call info as well
 
-function showResults (subject){
+function showResults (subjectQuestions){
 
-    var answerDisplay = $("#quiz")
+    var answerDisplay = $(".answers")
     var userAnswer = '';
     var numCorrect = 0;
 
-    for(var i=0; i < subject.length; i++){
+    for(var i=0; i < subjectQuestions.length; i++){
 
         userAnswer = (answerDisplay[i].querySelector('input[name=question'+i+']:checked')||{}).value;
         console.log("User answer: " + userAnswer);
-        if(userAnswer === subject[i].answer){
+        if(userAnswer === subjectQuestions[i].answer){
             numCorrect++;
             
             answerDisplay[i].style.color = "green";
@@ -131,7 +133,7 @@ function showResults (subject){
         }
     }
 
-    results.innerHTML = numCorrect + " out of " + subject.length;
+    results.innerHTML = numCorrect + " out of " + subjectQuestions.length;
 
 };
 
@@ -185,10 +187,7 @@ $.ajax( {
     error: function (){
       console.log("error")
     }
-  }).done(function(response){
-    //update with content from wiki
-    //$("#wiki-content")
-  });
+  })
 
 });
 
