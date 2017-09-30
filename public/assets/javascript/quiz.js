@@ -161,7 +161,9 @@ $("#submit").on("click", function(){
       withCredentials: false
     },*/
 $.ajax( {
-    url: "http://en.wikipedia.org/w/api.php?action=parse&format=jsonp&prop=revisions&rvprop=content&titles=Nile&callback=?",
+   // url: "http://en.wikipedia.org/w/api.php?action=parse&format=jsonp&prop=revisions&rvprop=content&titles=Nile&section=0&callback=?",
+    url: "http://en.wikipedia.org/w/api.php?action=query&format=jsonp&prop=extracts&exintro&explaintext&titles=Nile&section=0",
+    
     jsonp: "callback", 
     dataType: 'jsonp', 
     data: { 
@@ -180,9 +182,12 @@ $.ajax( {
     success: function(data, textStatus, jqXHR) {
       console.log("success")
       console.log(data);
-      var markup = data.parse;
-      var blurb = $('<div></div>').html(markup);
-      $('#wiki-content').html($(blurb).find('p'));
+
+      for (var pageNumber in data.query.pages){
+        console.log(data.query.pages[pageNumber].extract);
+        $("#wiki-content").html(data.query.pages[pageNumber].extract);
+      }; 
+
     },
     error: function (){
       console.log("error")
