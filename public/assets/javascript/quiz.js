@@ -22,6 +22,7 @@ var questions = {
       d: " Finland"
  		},
  		answer: "b",
+    wiki: "European_Union"
   }, {
 
     question: "What is the longest mountain range in the world?", answers: {
@@ -31,6 +32,7 @@ var questions = {
       d: " Rocky Mountains"
     },
     answer: "c",
+    wiki: "longest mountain range"
   }, {
 
     question: "Which of the following is the longest river in the world?", answers: {
@@ -39,7 +41,8 @@ var questions = {
       c: " Yangtze",
       d: " Congo"
     },
-    answer: "a"
+    answer: "a",
+    wiki: "longest river"
 
 	}],
 
@@ -51,6 +54,7 @@ var questions = {
       d: " Taxonomic"
     },
     answer: "b",
+    wiki: "genus"
 
 	}],
 
@@ -67,15 +71,35 @@ var questions = {
 }
 
 var currentSubject = "";
+var numCorrect = 0;
 $("#reset").hide();
 $("#submit").hide();
 $(".account-detail").hide();
 
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
 
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
 
 //set up a quiz function that can be called for any set of questions
 //this is just generating the quiz page
 function generateQuiz (subject){
+
+   // subject = shuffle(subject);
 
     var quiz = document.getElementById("quiz");
     var results = document.getElementById("results");
@@ -83,7 +107,7 @@ function generateQuiz (subject){
 
  	function buildQuiz (){
 		var output = [];
-      	var answers = [];
+    var answers = [];
 
     	for (var i = 0; i < subject.length; i++) {
       		console.log(i);
@@ -126,7 +150,7 @@ function showResults (subjectQuestions){
 
     var answerDisplay = $(".answers")
     var userAnswer = '';
-    var numCorrect = 0;
+    numCorrect = 0;
 
     for(var i=0; i < subjectQuestions.length; i++){
 
@@ -151,40 +175,70 @@ function showResults (subjectQuestions){
 //assign the subject
 $("#submit").on("click", function(){
   showResults(currentSubject);
+  $("#gif-content").empty();
+  console.log(numCorrect);
+  console.log(currentSubject);
 
-   if (numCorrect = currentSubject.length){
-     console.log("you rock, post to twitter");
-     $("#twitter-content").html("<input type=text maxlength=140></input>");
+   if (numCorrect == currentSubject.length){
+     console.log("you rock, post gif");
+
+     var winningGif = "";
+
+     $.ajax({
+      url: "http://api.giphy.com/v1/gifs/search?q=winning&api_key=9b203687108545728e67856c167e9113&rating=pg-13",
+      method: "GET",
+
+
+      success: function(response){
+
+        console.log(response);
+        var imageURL = response.data[Math.floor(Math.random()*response.data.length)].images.fixed_width.url;
+        var image = $("<img>");
+        $(image).attr("src", imageURL);
+        $("#gif-content").append(image);
+       
+
+      },
+
+      error: function(){
+        console.log("error")
+      }
+        
+      });
+
+
+
+    // $("#twitter-content").html("<input type=text maxlength=140></input>");
 
      // $("#twitter-button").html('<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
      // class="twitter-share-button" data-show-count="false">Tweet</a><script async 
      // src="//platform.twitter.com/widgets.js" charset="utf-8">')
 
-     var status = document.getElementById("twitter-content")
+     //var status = document.getElementById("twitter-content")
      //add twitter api
 
-     $.ajax({
-      url: "https://api.twitter.com/1.1/statuses/update.json?status=" + status,
-      method: "POST",
-      dataType: "jsonp",
+     // $.ajax({
+     //  url: "https://api.twitter.com/1.1/statuses/update.json?status=" + status,
+     //  method: "POST",
+     //  dataType: "jsonp",
       
-      success: function(data){
-        console.log("success");
-      },
+     //  success: function(data){
+     //    console.log("success");
+     //  },
 
-      error: function(){
-        console.log("error");
-      }
+     //  error: function(){
+     //    console.log("error");
+     //  }
 
 
-     });
+     // });
 
 
    }
 
    else {
     console.log("results updated with wiki api")
-    var studyContent = "Nile"
+    var studyContent = encodeURIComponent(currentSubject[0].wiki);
   //API link to wikipedia
   //ideally later show/hide the submit and reset buttons
 
