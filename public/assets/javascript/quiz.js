@@ -32,7 +32,7 @@ var questions = {
       d: " Rocky Mountains"
     },
     answer: "c",
-    wiki: "longest mountain range"
+    wiki: "List_of_mountain_ranges"
   }, {
 
     question: "Which of the following is the longest river in the world?", answers: {
@@ -42,7 +42,7 @@ var questions = {
       d: " Congo"
     },
     answer: "a",
-    wiki: "longest river"
+    wiki: "List_of_rivers_by_length"
 
 	}],
 
@@ -66,16 +66,26 @@ var questions = {
       d: " The French Affair"
     },
     answer: "c",
+    wiki: "Louisiana_Purchase"
 
 	}],
 }
 
+
+//global variable list
+
 var currentSubject = "";
 var numCorrect = 0;
+var currentQuestion = [];
+var questionIndex = 0;
 $("#reset").hide();
 $("#submit").hide();
 $(".account-detail").hide();
 
+
+
+
+//this function shuffles the questions to show a different order each time
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -96,67 +106,70 @@ function shuffle(array) {
 }
 
 //set up a quiz function that can be called for any set of questions
-//this is just generating the quiz page
+//this is just generating the first quiz question
 function generateQuiz (subject){
 
-   // subject = shuffle(subject);
+ // subject = shuffle(subject);
 
-    var quiz = document.getElementById("quiz");
-    var results = document.getElementById("results");
-    var submit = document.getElementById("submit");
+  var quiz = document.getElementById("quiz");
+  var results = document.getElementById("results");
+  var submit = document.getElementById("submit");
+  currentQuestion = subject;
 
- 	function buildQuiz (){
-		var output = [];
-    var answers = [];
-
-    	for (var i = 0; i < subject.length; i++) {
-      		console.log(i);
-      		answers = [];
-      		for (letter in subject[i].answers) {
-                answers.push("<li><label>"
-      			+ '<input type="radio" name=question' + i + 
-                ' value="'+letter+'" class="question">'
-					+ "  " + letter + " : "
-					+ subject[i].answers[letter]+ "</label></li>")
-      		};
-
-      		answers.push("</ul>");
-
-      		output.push(
-			"<div class='q'>" + subject[i].question + "</div>"
-			+"<br>"
-			+ "<div class='answers'>" + answers.join(' ') + "</div><br>")
-
-
-			quiz.innerHTML = output.join('');
-			console.log(output.join(''));
-
-
-        };
-
-    };
-
-buildQuiz();
-console.log("build quiz done");
+  buildQuiz();
 
 };
 
+
+//this function is building the html element for the quiz question
+//this function will update when the user clicks next question
+function buildQuiz(){
+  
+	var output = [];
+  var answers = [];
+  var i = questionIndex;
+
+  	//for (var i = 0; i < currentQuestion.length; i++) {
+    	console.log(i);
+      console.log(currentQuestion[i]);
+    //		answers = [];
+    		for (letter in currentQuestion[i].answers) {
+              answers.push("<li><label>"
+    			+ '<input type="radio" name=question' + i + 
+              ' value="'+letter+'" class="question">'
+				+ "  " + letter + " : "
+				+ currentQuestion[i].answers[letter]+ "</label></li>")
+    		};
+
+    		answers.push("</ul>");
+
+    		output.push(
+		"<div class='q'>" + currentQuestion[i].question + "</div>"
+		+"<br>"
+		+ "<div class='answers'>" + answers.join(' ') + "</div><br>")
+
+
+		quiz.innerHTML = output.join('');
+		console.log(output.join(''));
+
+
+      //};
+};
 
 //set up a results/summary function
 //this will display at the end to show which anwers are right/wrong
 //this *may* need to showcase the api call info as well
 
-function showResults (subjectQuestions){
+function showResults (){
 
     var answerDisplay = $(".answers")
     var userAnswer = '';
     numCorrect = 0;
-
-    for(var i=0; i < subjectQuestions.length; i++){
+    var i = questionIndex
 
         userAnswer = (answerDisplay[i].querySelector('input[name=question'+i+']:checked')||{}).value;
         console.log("User answer: " + userAnswer);
-        if(userAnswer === subjectQuestions[i].answer){
+        if(userAnswer === currentQuestion[i].answer){
             numCorrect++;
             
             answerDisplay[i].style.color = "green";
@@ -164,18 +177,16 @@ function showResults (subjectQuestions){
         else{
             answerDisplay[i].style.color = "darkred";
         }
-    }
 
-    results.innerHTML = numCorrect + " out of " + subjectQuestions.length;
+    results.innerHTML = numCorrect + " out of " + currentQuestion.length;
 
 };
 
 
-//set on.(click) event listener to run the generate quiz function 
-//assign the subject
-$("#submit").on("click", function(){
-  showResults(currentSubject);
+//this function updates the modal for each question submitted
+function updateModal(){
   $("#gif-content").empty();
+  $("#wiki-content").empty();
   console.log(numCorrect);
   console.log(currentSubject);
 
@@ -204,41 +215,11 @@ $("#submit").on("click", function(){
         console.log("error")
       }
         
-      });
-
-
-
-    // $("#twitter-content").html("<input type=text maxlength=140></input>");
-
-     // $("#twitter-button").html('<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
-     // class="twitter-share-button" data-show-count="false">Tweet</a><script async 
-     // src="//platform.twitter.com/widgets.js" charset="utf-8">')
-
-     //var status = document.getElementById("twitter-content")
-     //add twitter api
-
-     // $.ajax({
-     //  url: "https://api.twitter.com/1.1/statuses/update.json?status=" + status,
-     //  method: "POST",
-     //  dataType: "jsonp",
-      
-     //  success: function(data){
-     //    console.log("success");
-     //  },
-
-     //  error: function(){
-     //    console.log("error");
-     //  }
-
-
-     // });
-
-
-   }
-
-   else {
+    });
+  }
+  else {
     console.log("results updated with wiki api")
-    var studyContent = encodeURIComponent(currentSubject[0].wiki);
+    var studyContent = encodeURIComponent(currentSubject[questionIndex].wiki);
   //API link to wikipedia
   //ideally later show/hide the submit and reset buttons
 
@@ -271,7 +252,28 @@ $("#submit").on("click", function(){
       }
     });
   }
+}
 
+
+//set on.(click) event listener to run the generate quiz function 
+//assign the subject
+$("#submit").on("click", function(){
+  if (questionIndex+1 < currentQuestion.length) {
+    updateModal();
+    questionIndex ++;
+    buildQuiz();
+
+  }
+
+  else {
+    showResults();
+    updateModal();
+
+  }
+
+  // Get the modal for quiz result display
+  var modal = document.getElementById('answer-summary');
+  modal.style.display = "block";
 
 });
 
@@ -304,6 +306,7 @@ $("#reset").on("click", function(){
   $("#quiz").empty();
   console.log("reset quiz")
   $("#submit").hide();
+  currentQuestion = [];
 });
 
 // Get the modal for quiz result display
@@ -315,10 +318,10 @@ var btn = document.getElementById("submit");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks on the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
+//  When the user clicks on the button, open the modal 
+// btn.onclick = function() {
+//     modal.style.display = "block";
+// }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
