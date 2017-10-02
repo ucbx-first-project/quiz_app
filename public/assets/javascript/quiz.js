@@ -44,7 +44,18 @@ var questions = {
     answer: "a",
     wiki: "List_of_rivers_by_length"
 
-	}],
+	},{
+
+    question: "Which continent is largest in terms of land mass?", answers: {
+      a: " Asia",
+      b: " Europe",
+      c: " Africs",
+      d: " North America"
+    },
+    answer: "a",
+    wiki: "Continent"
+
+  }],
 
 	"biology" : [{
     question: "A group of similar species is a ______?", answers: {
@@ -78,6 +89,7 @@ var currentSubject = "";
 var numCorrect = 0;
 var currentQuestion = [];
 var questionIndex = 0;
+var lastAnswerCorrect = false;
 $("#reset").hide();
 $("#submit").hide();
 $(".account-detail").hide();
@@ -161,24 +173,24 @@ function buildQuiz(){
 //this *may* need to showcase the api call info as well
 
 function showResults (){
+  var answerDisplay = $(".answers")
+  var userAnswer = '';
+  var i = questionIndex
 
-    var answerDisplay = $(".answers")
-    var userAnswer = '';
-    numCorrect = 0;
-    var i = questionIndex
+      userAnswer = (answerDisplay[0].querySelector('input[name=question'+i+']:checked')||{}).value;
+      console.log("User answer: " + userAnswer);
+      if(userAnswer === currentQuestion[i].answer){
+          numCorrect++;
+          
+          answerDisplay[0].style.color = "green";
+          lastAnswerCorrect = true;
+      }
+      else{
+          answerDisplay[0].style.color = "darkred";
+          lastAnswerCorrect = false;
+      }
 
-        userAnswer = (answerDisplay[i].querySelector('input[name=question'+i+']:checked')||{}).value;
-        console.log("User answer: " + userAnswer);
-        if(userAnswer === currentQuestion[i].answer){
-            numCorrect++;
-            
-            answerDisplay[i].style.color = "green";
-        }
-        else{
-            answerDisplay[i].style.color = "darkred";
-        }
-
-    results.innerHTML = numCorrect + " out of " + currentQuestion.length;
+  results.innerHTML = numCorrect + " out of " + currentQuestion.length;
 
 };
 
@@ -190,7 +202,7 @@ function updateModal(){
   console.log(numCorrect);
   console.log(currentSubject);
 
-   if (numCorrect == currentSubject.length){
+   if (lastAnswerCorrect){
      console.log("you rock, post gif");
 
      var winningGif = "";
@@ -259,6 +271,7 @@ function updateModal(){
 //assign the subject
 $("#submit").on("click", function(){
   if (questionIndex+1 < currentQuestion.length) {
+    showResults();
     updateModal();
     questionIndex ++;
     buildQuiz();
