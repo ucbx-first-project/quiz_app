@@ -1,4 +1,4 @@
-//this logic happens after user authentication 
+//this logic happens after user authentication
 //on its own page for now(not connected to sign in)
 //later we can add a link between the pages that once user is signed in
 //moves you to the second page with the quiz generators
@@ -10,7 +10,7 @@
 //add giphy
 
 
-//questions object to contain each subject object 
+//questions object to contain each subject object
 //with a sub object holding questions
 
 var questions = {
@@ -131,7 +131,70 @@ var questions = {
     answer: "b",
     wiki: "genus"
 
-	}],
+	},{
+    question: "Which of the pHs listed below represents the strongest base?", answers: {
+      a: " 2",
+      b: " 7",
+      c: " 13",
+      d: " 15"
+    },
+    answer: "c",
+    wiki: "PH"
+  },{
+    question: "Which of the following is referred to as the powerhouse of the cell?", answers: {
+      a: " Mitochondria",
+      b: " Nucleus",
+      c: " Lysosome",
+      d: " Endoplasmic Reticulum"
+    },
+    answer: "a",
+    wiki: "Mitochondrion"
+  },{
+    question: "The process by which plants convert the energy from sunlight into chemical energy is called...", answers: {
+      a: " Cellular Respiration",
+      b: " The Citric Acid Cycle",
+      c: " Fermentation",
+      d: " Photosynthesis"
+    },
+    answer: "d",
+    wiki: "Photosynthesis"
+  },{
+    question: "Which of the following nitrogenous bases is found in DNA but is not found in RNA?", answers: {
+      a: " adenine",
+      b: " thymine",
+      c: " uracil",
+      d: " guanine"
+    },
+    answer: "b",
+    wiki: "Thymine"
+  },{
+    question: "'Double helix' describes the structure of a molecule of...", answers: {
+      a: " disaccharide",
+      b: " monosaccharide",
+      c: " DNA",
+      d: " RNA"
+    },
+    answer: "c",
+    wiki: "DNA"
+  },{
+    question: "How old is the earth?", answers: {
+      a: " 4.6 billion years old",
+      b: " 3.5 billion years old",
+      c: " 2.6 billion years old",
+      d: " 1.5 billion years old"
+    },
+    answer: "a",
+    wiki: "Earth"
+  },{
+    question: "What pigment is used in human vision?", answers: {
+      a: " chlorophyll a",
+      b: " beta-carotene",
+      c: " retinal",
+      d: " ferredoxin"
+    },
+    answer: "c",
+    wiki: "Retinal"
+  }],
 
 	"history" : [{
     question: "In 1803 President Jefferson purchased a large peice of land from the French. What was this event called?", answers: {
@@ -200,7 +263,7 @@ function generateQuiz (subject){
 //this function is building the html element for the quiz question
 //this function will update when the user clicks next question
 function buildQuiz(){
-  
+
 	var output = [];
   var answers = [];
   var i = questionIndex;
@@ -211,7 +274,7 @@ function buildQuiz(){
     //		answers = [];
     		for (letter in currentQuestion[i].answers) {
               answers.push("<li><label>"
-    			+ '<input type="radio" name=question' + i + 
+    			+ '<input type="radio" name=question' + i +
               ' value="'+letter+'" class="question">'
 				+ "  " + letter + " : "
 				+ currentQuestion[i].answers[letter]+ "</label></li>")
@@ -245,7 +308,7 @@ function showResults (){
       console.log("User answer: " + userAnswer);
       if(userAnswer === currentQuestion[i].answer){
           numCorrect++;
-          
+
           answerDisplay[0].style.color = "green";
           lastAnswerCorrect = true;
       }
@@ -283,14 +346,14 @@ function updateModal(){
         var image = $("<img>");
         $(image).attr("src", imageURL);
         $("#gif-content").append(image);
-       
+
 
       },
 
       error: function(){
         console.log("error")
       }
-        
+
     });
   }
   else {
@@ -302,14 +365,14 @@ function updateModal(){
     $.ajax( {
      // url: "http://en.wikipedia.org/w/api.php?action=parse&format=jsonp&prop=revisions&rvprop=content&titles=Nile&section=0&callback=?",
       url: "http://en.wikipedia.org/w/api.php?action=query&format=jsonp&prop=extracts&exintro&explaintext&titles=" + studyContent + "&section=0",
-      
-      jsonp: "callback", 
-      dataType: 'jsonp', 
-      data: { 
-          action: "query", 
-          list: "search", 
-          srsearch: "javascript", 
-          format: "json" 
+
+      jsonp: "callback",
+      dataType: 'jsonp',
+      data: {
+          action: "query",
+          list: "search",
+          srsearch: "javascript",
+          format: "json"
       },
       xhrFields: { withCredentials: true },
 
@@ -321,7 +384,7 @@ function updateModal(){
           console.log(data.query.pages[pageNumber].extract);
           $("#wiki-content").html(data.query.pages[pageNumber].extract);
           $("#score").text("<br>" + "Nice Try! Study some more and you will get it right next time!")
-        }; 
+        };
 
       },
       error: function (){
@@ -352,7 +415,7 @@ function callTriviaAPI (){
 }
 
 
-//set on.(click) event listener to run the generate quiz function 
+//set on.(click) event listener to run the generate quiz function
 //assign the subject
 $("#submit").on("click", function(){
   if (questionIndex+1 < currentQuestion.length) {
@@ -418,7 +481,7 @@ var btn = document.getElementById("submit");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-//  When the user clicks on the button, open the modal 
+//  When the user clicks on the button, open the modal
 // btn.onclick = function() {
 //     modal.style.display = "block";
 // }
