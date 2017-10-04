@@ -53,7 +53,71 @@ var questions = {
       d: " North America"
     },
     answer: "a",
-    wiki: "Continent"
+    wiki: "Asia"
+
+  },{
+
+    question: "Which of the following is not an official language of Switzerland?", answers: {
+      a: " French",
+      b: " German",
+      c: " Italian",
+      d: " Spanish"
+    },
+    answer: "d",
+    wiki: "Languages_of_Switzerland"
+
+  },{
+
+    question: "Besides Australia, what island is the largest in the world?", answers: {
+      a: " Iceland",
+      b: " Greenland",
+      c: " New Zealand",
+      d: " Japan"
+    },
+    answer: "b",
+    wiki: "List_of_islands_by_area"
+
+  },{
+
+    question: "Which measure of degrees is used to refer to the East/West direction?", answers: {
+      a: " Latitude",
+      b: " Longitude",
+    },
+    answer: "b",
+    wiki: "Longitude"
+
+  },{
+
+    question: "What term refers to a group or chain of islands clustered together in a sea or ocean?", answers: {
+      a: " Isthmus",
+      b: " Fjord",
+      c: " Archipeligo",
+      d: " Reef"
+    },
+    answer: "c",
+    wiki: "Archipelago"
+
+  }, {
+
+    question: "What term refers to the scale used to measure energy released at the focal point of an earthquake?", answers: {
+      a: " Richter Scale",
+      b: " Mercalli Scale",
+      c: " Da Vinchi Scale",
+      d: " Darwin Scale"
+    },
+    answer: "a",
+    wiki: "Richter_magnitude_scale"    
+
+  },{
+
+    question: "Which of the following is a list of all the contients?", answers: {
+      a: " Asia, Africa, America, South America, Europe",
+      b: " Central America, North America, Asia, Russia, Antartica",
+      c: " Asia, Africa, North America, South America, Antarctica, Europe, Australia",
+      d: " Australia, North America, Europe, Iceland, Africa"
+    },
+    answer: "c",
+    wiki: "Continent"   
 
   }],
 
@@ -256,14 +320,35 @@ function updateModal(){
         for (var pageNumber in data.query.pages){
           console.log(data.query.pages[pageNumber].extract);
           $("#wiki-content").html(data.query.pages[pageNumber].extract);
+          $("#score").text("<br>" + "Nice Try! Study some more and you will get it right next time!")
         }; 
 
       },
       error: function (){
-        console.log("error")
+        console.log("error");
       }
     });
   }
+}
+
+function callTriviaAPI (){
+  artQuestions = "";
+
+  $.ajax ({
+    url: "https://opentdb.com/api.php?amount=10&category=25&difficulty=medium&type=multiple",
+
+    success: function(data){
+      console.log("success");
+      console.log(data);
+      artQuestions = data.questions;
+
+    },
+
+    error: function(){
+      console.log("error");
+    }
+  });
+
 }
 
 
@@ -314,12 +399,14 @@ $("#start-history-quiz").on("click", function(){
   $("#reset").show();
 });
 
+
 $("#reset").on("click", function(){
   currentSubject = "";
   $("#quiz").empty();
   console.log("reset quiz")
   $("#submit").hide();
   currentQuestion = [];
+  numCorrect = 0;
 });
 
 // Get the modal for quiz result display
