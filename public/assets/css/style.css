@@ -1,5 +1,9 @@
 #jumbotron {
+<<<<<<< HEAD
 	background-color: #f9f9f9;
+=======
+  background-size: 0 0;
+>>>>>>> parent of f2bea3c... Merge branch 'master' into html_css_additions
 }
 
 
@@ -102,6 +106,94 @@ li {
   to {
     -webkit-filter: hue-rotate(-360deg);
   }
+<<<<<<< HEAD
+=======
+
+    #geopng.hovered {
+      animation-name: rotate;
+      animation-duration: 4s;
+      animation-iteration-count: infinite;
+    }
+
+    #biopng.hovered {
+      animation-name: rotate;
+      animation-duration: 4s;
+      animation-iteration-count: infinite;
+    }
+
+    #hispng.hovered {
+      animation-name: rotate;
+      animation-duration: 4s;
+      animation-iteration-count: infinite;
+    }
+
+      /* Safari 4.0 - 8.0 */
+      @-webkit-keyframes rotate {
+        from {transform: rotateY(0deg);
+        }
+        to {transform: rotateY(360deg);
+        }
+      }
+      /* Standard syntax */
+      @keyframes rotate {
+        from {transform: rotateY(0deg);
+        }
+        to {transform: rotateY(360deg);
+        }
+      }
+
+#submit,
+#reset {
+  width: 20%;
+  margin-right: 12%;
+  margin-left: 12%;
+}
+
+#quiz {
+  background-color: white;
+  padding: 20px;
+}
+
+#answers {
+	background-color: white;
+	padding: 20px;
+}
+
+li {
+	list-style: none;
+}
+
+/*
+Modal
+*/
+.modal {
+  text-align: center;
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: white;
+  vertical-align: center;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  height: auto;
+}
+
+#modal-content {
+  display: inline-block;
+  max-width: 100ch;
+>>>>>>> parent of f2bea3c... Merge branch 'master' into html_css_additions
 }
 
 #quiz-result,
