@@ -43,7 +43,7 @@ var questions = {
     question: "Which continent is largest in terms of land mass?", answers: {
       a: " Asia",
       b: " Europe",
-      c: " Africs",
+      c: " Africa",
       d: " North America"
     },
     answer: "a",
@@ -232,6 +232,61 @@ var questions = {
     },
     answer: "d",
     wiki: "President"
+
+  },{
+
+    question: "In what decade did the Lewis and Clark Expedition take place?", answers: {
+      a: " 1780",
+      b: " 1790",
+      c: " 1800",
+      d: " 1810"
+    },
+    answer: "c",
+    wiki: "Lewis_and_Clark_Expedition"
+
+  },{
+
+    question: "What crop became an essential component of the American colonial economy?", answers: {
+      a: " Tobacco",
+      b: " Corn",
+      c: " Potatoes",
+      d: " Oranges"
+    },
+    answer: "a",
+    wiki: "Tobacco_in_the_American_Colonies"
+
+  },{
+
+    question: "What term was used in the Progressive Era to characterize journalists who attacked established institutions and leaders as corrupt?", answers: {
+      a: " Federalist",
+      b: " Muckraker",
+      c: " Loyalist",
+      d: " Anti-Federalist"
+    },
+    answer: "b",
+    wiki: "Muckraker"
+
+  },{
+
+    question: "On what date was the Treaty of Versailles signed?", answers: {
+      a: " March 3, 1921",
+      b: " September 1, 1920",
+      c: " December 11, 1919",
+      d: " June 28, 1919"
+    },
+    answer: "d",
+    wiki: "Treaty_of_Versailles"
+
+  },{
+
+    question: "What was the title of Thomas Paine's publication that advocated independence from Great Britain to people in the Thirteen Colonies?", answers: {
+      a: " Farewell Address",
+      b: " Common Sense",
+      c: " Uncle Tom's Cabin",
+      d: " A New Hope"
+    },
+    answer: "b",
+    wiki: "Common_Sense_(pamphlet)"
 
   },{
 
