@@ -476,12 +476,49 @@ $("#submit").on("click", function(){
 
 });
 
+//Upon hovering, this makes the subject icons rotate
+$("#start-geo-quiz").ready(function(){
+  $("#start-geo-quiz").hover(function(){
+    $("#geopng").addClass('hovered');
+  }, function(){
+    $("#geopng").removeClass('hovered');
+  });
+});
+
+$("#start-bio-quiz").ready(function(){
+  $("#start-bio-quiz").hover(function(){
+    $("#biopng").addClass('hovered');
+  }, function(){
+    $("#biopng").removeClass('hovered');
+  });
+});
+
+$("#start-history-quiz").ready(function(){
+  $("#start-history-quiz").hover(function(){
+    $("#hispng").addClass('hovered');
+  }, function(){
+    $("#hispng").removeClass('hovered');
+  });
+});
+
+
+
+
 $("#start-geo-quiz").on("click", function(){
   currentSubject = questions.geography;
   generateQuiz(questions.geography);
   console.log("started quiz");
   $("#submit").show();
   $("#reset").show();
+  $("#jumbotron").fadeTo(400, 0, function() {
+    $("#start-geo-quiz").fadeTo("slow", 1);
+    $("#start-bio-quiz").fadeTo("slow", 0.60);
+    $("#start-history-quiz").fadeTo("slow", 0.60);
+    document.getElementById("jumbotron").style.backgroundImage = "url('https://upload.wikimedia.org/wikipedia/commons/8/85/Hacha_grande_from_papagayo_pano.jpg')";
+    document.getElementById("jumbotron").style.backgroundSize = "cover";
+    document.getElementById("jumbotron").style.backgroundRepeat = "no-repeat";
+    $("#jumbotron").fadeTo(400, 1);
+  });
 });
 
 $("#start-bio-quiz").on("click", function(){
@@ -490,6 +527,15 @@ $("#start-bio-quiz").on("click", function(){
   console.log("started quiz");
   $("#submit").show();
   $("#reset").show();
+  $("#jumbotron").fadeTo(400, 0, function() {
+    $("#start-geo-quiz").fadeTo("slow", 0.60);
+    $("#start-bio-quiz").fadeTo("slow", 1);
+    $("#start-history-quiz").fadeTo("slow", 0.60);
+    document.getElementById("jumbotron").style.backgroundImage = "url('http://www.rug.nl/education/studyprogram-images/MSc-marine-biology.jpg')";
+    document.getElementById("jumbotron").style.backgroundSize = "cover";
+    document.getElementById("jumbotron").style.backgroundRepeat = "no-repeat";
+    $("#jumbotron").fadeTo(400, 1);
+  });
 });
 
 $("#start-history-quiz").on("click", function(){
@@ -498,6 +544,15 @@ $("#start-history-quiz").on("click", function(){
   console.log("started quiz");
   $("#submit").show();
   $("#reset").show();
+  $("#jumbotron").fadeTo(400, 0, function() {
+    $("#start-geo-quiz").fadeTo("slow", 0.60);
+    $("#start-bio-quiz").fadeTo("slow", 0.60);
+    $("#start-history-quiz").fadeTo("slow", 1);
+    document.getElementById("jumbotron").style.backgroundImage = "url('http://s3.amazonaws.com/libapps/accounts/36669/images/decl.jpg')";
+    document.getElementById("jumbotron").style.backgroundSize = "cover";
+    document.getElementById("jumbotron").style.backgroundRepeat = "no-repeat";
+    $("#jumbotron").fadeTo(400, 1);
+  });
 });
 
 
@@ -508,6 +563,10 @@ $("#reset").on("click", function(){
   $("#submit").hide();
   currentQuestion = [];
   numCorrect = 0;
+  document.getElementById("jumbotron").style.backgroundSize = "0 0";
+  $("#start-bio-quiz").fadeTo("slow", 1);
+  $("#start-geo-quiz").fadeTo("slow", 1);
+  $("#start-history-quiz").fadeTo("slow", 1);
 });
 
 // Get the modal for quiz result display
