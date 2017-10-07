@@ -3,6 +3,7 @@ Heading
 */
 #jumbotron {
   background-size: 0 0;
+  background-color: #f9f9f9;
 }
 
 #heading-background {
@@ -142,6 +143,15 @@ Quiz
 
 li {
 	list-style: none;
+}
+
+/*
+Nav Panel
+*/
+#btnSignUp,
+#btnLogout,
+#btnLogin {
+	margin: 10px;
 }
 
 /*
