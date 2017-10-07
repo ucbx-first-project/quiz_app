@@ -4,12 +4,6 @@
 //moves you to the second page with the quiz generators
 
 
-//edit quiz to single question which allows for update of wiki on each
-//add next question button to pull a new random question
-//check api info for trivia question generator
-//add giphy
-
-
 //questions object to contain each subject object
 //with a sub object holding questions
 
@@ -206,7 +200,51 @@ var questions = {
     answer: "c",
     wiki: "Louisiana_Purchase"
 
-	}],
+	},{
+
+    question: "Which document written by Abraham Lincoln freed the slaves in Confederate States?", answers: {
+      a: " Eleventh Amendment",
+      b: " Freedman Order",
+      c: " Emancipation Proclimation",
+      d: " Abraham Decree"
+    },
+    answer: "c",
+    wiki: "Emancipation_Proclamation"
+
+  },{
+
+    question: "What railroad started on both coasts and met in the middle, connecting all the way across the United States?", answers: {
+      a: " Amtrak Cross-Country",
+      b: " Transcontinental Railroad",
+      c: " Atlantic and Pacific Railroad",
+      d: " Siberian Express"
+    },
+    answer: "b",
+    wiki: "Transcontinental_railroad"
+
+  },{
+
+    question: "What is one responsibility that modern presidents have that was not described in the Constitution?", answers: {
+      a: " Commanding the Armed Forces",
+      b: " Granting Pardons",
+      c: " Appointing Supreme Court Justices",
+      d: " Presenting an annual budget to congress"
+    },
+    answer: "d",
+    wiki: "President"
+
+  },{
+
+    question: "What is the First Amendment?", answers: {
+      a: " Right to Free Speech",
+      b: " Right to Bare Arms",
+      c: " Freedom of Religion",
+      d: " Freedom From Unreasonable Search and Seizure"
+    },
+    answer: "a",
+    wiki: "Bill_of_rights"
+
+  }],
 }
 
 
@@ -502,4 +540,9 @@ $("#account-button").on("click", function(){
 
     $(".account-detail").slideToggle();
 
+});
+
+$("#login-button").on("click", function(){
+
+    $(".login-detail").slideToggle();
 });
